@@ -52,7 +52,7 @@ public class Bird : Agent
     {
         actionsOut[0] = 0;
         
-        if(!Input.GetKey(KeyCode.Space)) {return;}
+        if(!Input.GetKeyDown(KeyCode.Space)) {return;}
 
         actionsOut[0] = 1;
     }

@@ -29,3 +29,7 @@ behaviors:
   Flappy:
    max_steps: 5.0e7
    threaded: true
+
+  Flappy2:
+   max_steps: 5.0e7
+   threaded: true

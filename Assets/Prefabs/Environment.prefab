@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6516447071592704010}
   m_Layer: 0
-  m_Name: Simulation
+  m_Name: Environment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -360,14 +360,13 @@ PrefabInstance:
     - target: {fileID: 526995504945695893, guid: 6bd915006e2b6104c890bd6cd27ba9e0,
         type: 3}
       propertyPath: m_InferenceDevice
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 526995504945695893, guid: 6bd915006e2b6104c890bd6cd27ba9e0,
         type: 3}
       propertyPath: m_Model
       value: 
-      objectReference: {fileID: 5022602860645237092, guid: 85e32647e788b5b4ab9df3aeebc27558,
-        type: 3}
+      objectReference: {fileID: 0}
     - target: {fileID: 1086101839671463685, guid: 6bd915006e2b6104c890bd6cd27ba9e0,
         type: 3}
       propertyPath: m_Name
@@ -427,21 +426,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 5137345879756548040, guid: 6bd915006e2b6104c890bd6cd27ba9e0,
-        type: 3}
-      propertyPath: m_Constraints
-      value: 112
-      objectReference: {fileID: 0}
-    - target: {fileID: 5137345879756548040, guid: 6bd915006e2b6104c890bd6cd27ba9e0,
-        type: 3}
-      propertyPath: m_Interpolate
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5137345879756548040, guid: 6bd915006e2b6104c890bd6cd27ba9e0,
-        type: 3}
-      propertyPath: m_CollisionDetection
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6076058671016755037, guid: 6bd915006e2b6104c890bd6cd27ba9e0,
         type: 3}
