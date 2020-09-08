@@ -13,6 +13,9 @@ public class PipeHandler : MonoBehaviour
     private Pipe pipePrefab = null;
 
     [SerializeField] 
+    private GameObject passPrefab;
+
+    [SerializeField] 
     [Tooltip("The opening between two pipes")]
     private float gapSize = 4f;
     
@@ -22,6 +25,8 @@ public class PipeHandler : MonoBehaviour
     private float spawnTimer;
     
     private readonly List<Pipe> _pipes = new List<Pipe>();
+    private readonly List<GameObject> _passes = new List<GameObject>();
+
 
     private ObjectPooler _objectPooler;
     
@@ -45,7 +50,7 @@ public class PipeHandler : MonoBehaviour
 
         SpawnPipe(centerHeight, true);
         SpawnPipe(centerHeight, false);
-        
+
         spawnTimer = secondsBetweenSpawns;
     }
 
@@ -56,21 +61,30 @@ public class PipeHandler : MonoBehaviour
     /// <param name="top">is this a top pipe? if yes do smth otherwise do smth else</param>
     void SpawnPipe(float centerHeight, bool top)
     {
-        GameObject pipe = _objectPooler.GetPooledObject();
+        GameObject pipe = _objectPooler.GetPooledObject(_objectPooler.pooledPipes);
         pipe.transform.position = transform.position;
-        
         
         pipe.transform.rotation = top? Quaternion.Euler(0,0,180f) : Quaternion.identity;
         
         pipe.transform.position +=
             top ? Vector3.up * (centerHeight + gapSize / 2) : Vector3.up * (centerHeight - gapSize / 2);
-        
-        //pipe.transform.Translate(Vector3.up * (centerHeight + (gapSize/2)), Space.World);
+
+        if (top) SpawnPass(pipe, centerHeight);
         
         _pipes.Add(pipe.GetComponent<Pipe>());
         pipe.SetActive(true);
     }
-    
+
+    private void SpawnPass(GameObject pipe, float centerHeight)
+    {
+        GameObject pass = _objectPooler.GetPooledObject(_objectPooler.pooledPasses);
+        pass.transform.SetParent(pipe.transform);
+        pass.transform.position =  new Vector3(pipe.transform.position.x, centerHeight, pipe.transform.position.z);
+        _passes.Add(pass);
+        pass.SetActive(true);
+        
+    }
+
     /// <summary>
     /// Deactivates all pipes in scene upon agent's
     /// episode begin
@@ -85,6 +99,16 @@ public class PipeHandler : MonoBehaviour
         _pipes.Clear();
 
         spawnTimer = 0f;
+    }
+
+    public void ResetPasses()
+    {
+        foreach (var pass in _passes)
+        {
+            pass.gameObject.SetActive(false);
+        }
+        
+        _passes.Clear();
     }
 }
 

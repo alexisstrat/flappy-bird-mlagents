@@ -237,6 +237,8 @@ MonoBehaviour:
   endPos: {fileID: 3444504514975448177}
   pipePrefab: {fileID: 584679696529059655, guid: 2fc2470ebf23c094782e9d540494e30f,
     type: 3}
+  passPrefab: {fileID: 8340378292556313022, guid: 3cdbdd9b512a1a04e8b3bbca22763325,
+    type: 3}
   gapSize: 4
   secondsBetweenSpawns: 2
 --- !u!114 &525953793438854905
@@ -251,12 +253,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3531853df949478949cd9fd1d5c763, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemToPool:
-    objectToPool: {fileID: 5072562262631666826, guid: 2fc2470ebf23c094782e9d540494e30f,
+  itemsToPool:
+  - objectToPool: {fileID: 5072562262631666826, guid: 2fc2470ebf23c094782e9d540494e30f,
       type: 3}
     maxAmountToPool: 8
-    shouldExpand: 1
-  pooledObjects: []
+    shouldExpand: 0
+  - objectToPool: {fileID: 8340378292556313022, guid: 3cdbdd9b512a1a04e8b3bbca22763325,
+      type: 3}
+    maxAmountToPool: 6
+    shouldExpand: 0
+  pooledPipes: []
+  pooledPasses: []
 --- !u!1 &6516447073376426029
 GameObject:
   m_ObjectHideFlags: 0
@@ -366,7 +373,8 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Model
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 5022602860645237092, guid: 3ff37844470ecab4ab0084a1d7bc844f,
+        type: 3}
     - target: {fileID: 1086101839671463685, guid: 6bd915006e2b6104c890bd6cd27ba9e0,
         type: 3}
       propertyPath: m_Name
@@ -432,6 +440,11 @@ PrefabInstance:
       propertyPath: pipeHandler
       value: 
       objectReference: {fileID: 6516447072046191830}
+    - target: {fileID: 6358187499810748650, guid: 6bd915006e2b6104c890bd6cd27ba9e0,
+        type: 3}
+      propertyPath: m_RayLayerMask.m_Bits
+      value: 51
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bd915006e2b6104c890bd6cd27ba9e0, type: 3}
 --- !u!4 &9192701798325371289 stripped

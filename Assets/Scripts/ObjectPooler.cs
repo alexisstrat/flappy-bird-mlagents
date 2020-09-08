@@ -11,23 +11,35 @@ public class ObjectPooler : MonoBehaviour
         public bool shouldExpand;
     }
     
-    public PoolItem itemToPool;
-    public List<GameObject> pooledObjects;
+    public List<PoolItem> itemsToPool;
+    public List<GameObject> pooledPipes;
+    public List<GameObject> pooledPasses;
+
     
     private void Awake()
     {
-        pooledObjects = new List<GameObject>();
-        
-        for (int i = 0; i < itemToPool.maxAmountToPool; i++)
+        pooledPipes = new List<GameObject>();
+        for (int i = 0; i < itemsToPool.Count ; i++)
         {
-            GameObject obj = Instantiate(itemToPool.objectToPool, transform, true);
-            obj.GetComponent<Pipe>().endPos = GetComponent<PipeHandler>().endPos;
-            obj.SetActive(false);
-            pooledObjects.Add(obj);
+            for (int j = 0; j < itemsToPool[i].maxAmountToPool; j++)
+            {
+                GameObject obj = Instantiate(itemsToPool[i].objectToPool, transform, true);
+                switch (i)
+                {
+                    case 0:
+                        obj.GetComponent<Pipe>().endPos = GetComponent<PipeHandler>().endPos;
+                        pooledPipes.Add(obj);
+                        break;
+                    case 1:
+                        pooledPasses.Add(obj);
+                        break;
+                }
+                obj.SetActive(false);
+            }
         }
     }
     
-    public GameObject GetPooledObject()
+    public GameObject GetPooledObject(List<GameObject> pooledObjects)
     {
         for (int i = 0; i < pooledObjects.Count; i++)
         {
@@ -36,13 +48,6 @@ public class ObjectPooler : MonoBehaviour
                 return pooledObjects[i];
             }
         }
-
-        if (!itemToPool.shouldExpand) return null;
-        
-        GameObject obj = Instantiate(itemToPool.objectToPool, transform, true);
-        obj.GetComponent<Pipe>().endPos = GetComponent<PipeHandler>().endPos;
-        obj.SetActive(false);
-        pooledObjects.Add(obj);
-        return obj;
+        return null;
     }
 }

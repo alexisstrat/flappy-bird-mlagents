@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.MLAgents;
+using Unity.MLAgents.Policies;
 using UnityEngine;
 
 public class Bird : Agent
@@ -31,6 +32,11 @@ public class Bird : Agent
         rb.velocity = Vector3.zero;
 
         pipeHandler.ResetPipes();
+        pipeHandler.ResetPasses();
+        
+        if (GetComponent<BehaviorParameters>().BehaviorType != BehaviorType.HeuristicOnly) return;
+
+        GameManager.Get.ResetScore();
     }
 
     public override void OnActionReceived(float[] vectorAction)
@@ -59,8 +65,23 @@ public class Bird : Agent
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.layer == 8)
+        {
+            return;
+        }
+        
         AddReward(-1.0f);
         EndEpisode();
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (GetComponent<BehaviorParameters>().BehaviorType != BehaviorType.HeuristicOnly) return;
+            
+        if (other.gameObject.layer == 8)
+        {
+            GameManager.Get.UpdateScore();
+        }
     }
 
     private void Update()

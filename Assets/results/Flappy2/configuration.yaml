@@ -83,7 +83,7 @@ behaviors:
     init_path: null
     keep_checkpoints: 5
     checkpoint_interval: 500000
-    max_steps: 50000000
+    max_steps: 30000000
     time_horizon: 64
     summary_freq: 50000
     threaded: true
@@ -109,7 +109,7 @@ checkpoint_settings:
   run_id: Flappy2
   initialize_from: null
   load_model: false
-  resume: false
+  resume: true
   force: false
   train_model: false
   inference: false
